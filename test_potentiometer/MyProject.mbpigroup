@@ -1,0 +1,6 @@
+[PROJECTS]
+Count=2
+Project0=..\..\MikroBasic pro for PIC\test\LedBlinking.mbppi
+Project1=MyProject.mbppi
+[ActiveProject]
+Index=1

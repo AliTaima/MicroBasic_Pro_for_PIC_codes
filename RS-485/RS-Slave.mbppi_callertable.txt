@@ -1,0 +1,9 @@
+main
+	UART1_Init
+	Rs485slave_Init
+	ADC_Init
+	ADC_Read
+		Delay_22us
+interrupt
+	Rs485slave_Receive
+		____DoIFC

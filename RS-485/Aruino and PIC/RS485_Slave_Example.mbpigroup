@@ -1,0 +1,7 @@
+[PROJECTS]
+Count=3
+Project0=..\LCD\LCD.mbppi
+Project1=RS_485.mbppi
+Project2=RS485_Slave_Example.mbppi
+[ActiveProject]
+Index=2

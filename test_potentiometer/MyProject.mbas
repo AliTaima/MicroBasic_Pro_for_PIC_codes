@@ -1,0 +1,28 @@
+program MyProject
+
+' Declarations section
+
+dim adc_rd as word
+dim str as string[5]
+main:
+  UART1_Init(9600)                     ' Initialize UART module at 9600 bps
+  Delay_ms(100)                        ' Wait for UART module to stabilize
+  UART1_Write_Text("Readyyy")
+  ADC_Init()
+  CMCON = CMCON or 0x07 ' turn off comparators
+  ADCON1 = ADCON1 or 0x0C ' Set AN2 channel pin as analog
+  TRISA2_bit = 1 ' input
+  TRISB = 0x00 ' Set PORTB as output
+  TRISC = 0x00 ' Set PORTC as output
+  while (TRUE)
+        adc_rd = ADC_Read(2) ' get ADC value from 2nd channel
+        WordToStr(adc_rd, str)
+       UART1_Write_Text(str)             ' and send data via UART
+       PORTB.1 = 0
+       PORTB.2 = 1
+       Delay_ms(1000)
+       PORTB.1 = 1
+       PORTB.2 = 0
+       Delay_ms(1000)
+  wend
+end.nd
