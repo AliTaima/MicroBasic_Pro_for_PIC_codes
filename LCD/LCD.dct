@@ -2574,6 +2574,10 @@ txip
 txip_bit
 txreg
 txsta
+txt1
+txt2
+txt3
+txt4
 ua
 ua_bit
 uart_data_ready

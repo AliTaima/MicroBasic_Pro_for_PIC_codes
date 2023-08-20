@@ -3,24 +3,46 @@ program LCD
 ' Declarations section 
 ' module LCD connnections
 dim
-  LCD_RS as sbit at RB0_bit
-  LCD_EN as sbit at RB1_bit
-  LCD_D4 as sbit at RB2_bit
-  LCD_D5 as sbit at RB3_bit
-  LCD_D6 as sbit at RB4_bit
-  LCD_D7 as sbit at RB5_bit
+  LCD_RS as sbit at RB4_bit
+  LCD_EN as sbit at RB5_bit
+  LCD_D4 as sbit at RA0_bit
+  LCD_D5 as sbit at RA1_bit
+  LCD_D6 as sbit at RA2_bit
+  LCD_D7 as sbit at RA3_bit
 dim
-  LCD_RS_Direction as sbit at TRISB0_bit
-  LCD_EN_Direction as sbit at TRISB1_bit
-  LCD_D4_Direction as sbit at TRISB2_bit
-  LCD_D5_Direction as sbit at TRISB3_bit
-  LCD_D6_Direction as sbit at TRISB4_bit
-  LCD_D7_Direction as sbit at TRISB5_bit
+  LCD_RS_Direction as sbit at TRISB4_bit
+  LCD_EN_Direction as sbit at TRISB5_bit
+  LCD_D4_Direction as sbit at TRISA0_bit
+  LCD_D5_Direction as sbit at TRISA1_bit
+  LCD_D6_Direction as sbit at TRISA2_bit
+  LCD_D7_Direction as sbit at TRISA3_bit
   ' End Lcd module connections
-
+  dim txt1 as char[16]
+    txt2 as char[9]
+    txt3 as char[8]
+    txt4 as char[7]
 main:
 '   Main program
+
+    TRISB = 0
+    PORTB = 0xFF
+    TRISB = 0xFF
+    ADCON1  = 0xFF                     ' Configure AN pins as digital I/O  ***most important***
+  
+    txt1 = "mikroElektronika"
+    txt2 = "EasyPIC6"
+    txt3 = "Lcd4bit"
+    txt4 = "example"
+
     Lcd_Init()                     ' Initialize Lcd
-    Lcd_Out(1,1,"Ali")              ' Write text in first row
+    Lcd_Cmd(_LCD_CLEAR)            ' Clear display
+    Lcd_Cmd(_LCD_CURSOR_OFF)       ' Cursor off
+    Lcd_Out(1,6,txt3)              ' Write text in first row
+    Lcd_Out(2,6,txt4)              ' Write text in second row
+    Delay_ms(2000)
+    Lcd_Cmd(_LCD_CLEAR)            ' Clear display
+
+    Lcd_Out(1,1,txt1)              ' Write text in first row
+    Lcd_Out(2,5,txt2)              ' Write text in second row
 
 end.
