@@ -1,6 +1,8 @@
 program RTC_Read
 
-dim seconds, minutes, hours, _day, _month, year as byte    ' Global date/time variables
+dim seconds, minutes, hours, day, month, year as byte    ' Global date/time variables
+dim time as char[10]
+dim date as char[10]
 
 
 ' Software I2C connections
@@ -24,50 +26,58 @@ dim LCD_RS as sbit at RB4_bit
     LCD_D7_Direction as sbit at TRISB3_bit
 ' End Lcd module connections
 
-'--------------------- Reads time and date information from RTC (PCF8583)
-sub procedure Read_Time()
-  Soft_I2C_Start()              ' Issue start signal
-  Soft_I2C_Write(0xd0)          ' Address PCF8583, see PCF8583 datasheet
-  Soft_I2C_Write(2)             ' Start from address 2
-  Soft_I2C_Start()              ' Issue repeated start signal
-  Soft_I2C_Write(0xd1)          ' Address PCF8583 for reading R/W=1
-  seconds = Soft_I2C_Read(1)    ' Read seconds byte
-  minutes = Soft_I2C_Read(1)    ' Read minutes byte
-  hours = Soft_I2C_Read(1)      ' Read hours byte
-  _day = Soft_I2C_Read(1)       ' Read year/day byte
-  _month = Soft_I2C_Read(0)     ' Read weekday/month byte}
-  Soft_I2C_Stop()               ' Issue stop signal}
+sub function msb(dim x as char) as char ' Yet another function. Make sure that parameters match the type definition
+    result = (x>>4)+$30
 end sub
 
-'-------------------- Formats date and time
-sub procedure Transform_Time()
-  seconds  =  ((seconds and 0xF0) >> 4)*10 + (seconds and 0x0F)  ' Transform seconds
-  minutes  =  ((minutes and 0xF0) >> 4)*10 + (minutes and 0x0F)  ' Transform months
-  hours    =  ((hours and 0xF0)  >> 4)*10  + (hours and 0x0F)    ' Transform hours
-  year     =   (_day and 0xC0) >> 6                              ' Transform year
-  _day      =  ((_day and 0x30) >> 4)*10    + (_day and 0x0F)    ' Transform day
-  _month    =  ((_month and 0x10)  >> 4)*10 + (_month and 0x0F)  ' Transform month
+sub function lsb(dim x as char) as char
+    result = (x and 0x0f)+$30
 end sub
+sub function read_ds1307(dim adress as byte) as byte
+    Soft_I2C_Start()              ' Issue start signal
+    Soft_I2C_Write(0xd0)          ' Address ds1307
+    Soft_I2C_Write(adress)             ' Start from address 2
+    Soft_I2C_Start()              ' Issue repeated start signal
+    Soft_I2C_Write(0xd1)          ' Address PCF8583 for reading R/W=1
+    result = Soft_I2C_Read(0)
+    Soft_I2C_Stop()               ' Issue stop signal}
+end sub
+
+'--------------------- Reads time and date information from RTC (PCF8583)
+sub procedure Read_Time()
+  seconds = read_ds1307(0)        'read second byte
+  minutes = read_ds1307(1)        'read minute byte
+  hours = read_ds1307(2)          'read hour byte
+  day = read_ds1307(4)            'read day byte
+  month = read_ds1307(5)          'read month byte
+  year = read_ds1307(6)           'read year byte
+  time[0] = msb(hours)
+  time[1] = lsb(hours)
+  time[3] = msb(minutes)
+  time[4] = lsb(minutes)
+  time[6] = msb(seconds)
+  time[7] = lsb(seconds)
+  date[0] = msb(day)
+  date[1] = lsb(day)
+  date[3] = msb(month)
+  date[4] = lsb(month)
+  date[6] = msb(year)
+  date[7] = lsb(year)
+  
+end sub
+
+
 
 '-------------------- Output values to Lcd
 sub procedure Display_Time()
-  Lcd_Chr(1, 6, (_day / 10)   + 48)    ' Print tens digit of day variable
-  Lcd_Chr(1, 7, (_day mod 10)   + 48)  ' Print oness digit of day variable
-  Lcd_Chr(1, 9, (_month / 10) + 48)    ' Print tens digit of month variable
-  Lcd_Chr(1,10, (_month mod 10) + 48)  ' Print oness digit of month variable
-  Lcd_Chr(1, 15, year        + 48)     ' Print year vaiable + 8 (start from year 2008)
-
-  Lcd_Chr(2, 6, (hours / 10)   + 48)   ' Print tens digit of hours variable
-  Lcd_Chr(2, 7, (hours mod 10)   + 48) ' Print oness digit of hours variable
-  Lcd_Chr(2, 9, (minutes / 10) + 48)   ' Print tens digit of minutes variable
-  Lcd_Chr(2,10, (minutes mod 10) + 48) ' Print oness digit of minutes variable
-  Lcd_Chr(2,12, (seconds / 10) + 48)   ' Print tens digit of seconds variable
-  Lcd_Chr(2,13, (seconds mod 10) + 48) ' Print oness digit of seconds variable
+  lcd_out(2, 6, time)
+  lcd_out(1, 6, date)
 end sub
 
 '------------------ Performs project-wide init
 sub procedure Init_Main()
-
+  time = "00:00:00"
+  date = "00/00/00"
   TRISB = 0
   PORTB = 0xFF
   TRISB = 0xFF
@@ -81,48 +91,20 @@ sub procedure Init_Main()
   Lcd_Cmd(_LCD_CURSOR_OFF)  ' Turn cursor off
 
   Lcd_Out(1,1,"Date:")      ' Prepare and output static text on Lcd
-  Lcd_Chr(1,8,".")
-  Lcd_Chr(1,11,".")
-  Lcd_Chr(1,16,".")
+
   Lcd_Out(2,1,"Time:")
-  Lcd_Chr(2,8,":")
-  Lcd_Chr(2,11,":")
-  Lcd_Out(1,12,"201")       ' start from year 2010
+
 end sub
-dim txt1 as char[16]
-    txt2 as char[9]
-    txt3 as char[8]
-    txt4 as char[7]
+
 '----------------- Main sub procedure
 main:
   Delay_ms(500)
 
   Init_Main()             ' Perform initialization
-   'TRISB = 0
-'  PORTB = 0xFF
-'  TRISB = 0xFF
-'  ADCON1 = 0xFF
-'   txt1 = "mikroElektronika"
-'    txt2 = "EasyPIC6"
-'    txt3 = "Lcd4bit"
-'    txt4 = "example"
-'
-'    Lcd_Init()                     ' Initialize Lcd
-'    Lcd_Cmd(_LCD_CLEAR)            ' Clear display
-'    Lcd_Cmd(_LCD_CURSOR_OFF)       ' Cursor off
-'    Lcd_Out(1,1,"Date:")      ' Prepare and output static text on Lcd
-'  Lcd_Chr(1,8,".")
-'  Lcd_Chr(1,11,".")
-'  Lcd_Chr(1,16,".")
-'  Lcd_Out(2,1,"Time:")
-'  Lcd_Chr(2,8,":")
-'  Lcd_Chr(2,11,":")
-'  Lcd_Out(1,12,"201")       ' start from year 2010
-
 
   while TRUE              ' Endless loop
     Read_Time()           ' Read time from RTC(PCF8583)
-    Transform_Time()      ' Format date and time
-    Display_Time()        ' Prepare and display on Lcd
+    Display_Time()      ' Format date and time
+    Delay_ms(100)
   wend
 end.

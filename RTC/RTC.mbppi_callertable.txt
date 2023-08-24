@@ -18,32 +18,33 @@ main
 					Delay_1us
 					Delay_5500us
 					Delay_50us
-		Lcd_Chr
-			Lcd_Cmd
-				Delay_1us
-				Delay_5500us
-				Delay_50us
 	Read_Time
-		Soft_I2C_Start
-			Delay_1us
-			PutZerosToLATSda
-			PutZerosToLATScl
-		Soft_I2C_Write
-			Delay_1us
-			PutZerosToLATScl
-			PutZerosToLATSda
-		Soft_I2C_Read
-			Delay_1us
-			PutZerosToLATScl
-			PutZerosToLATSda
-		Soft_I2C_Stop
-			PutZerosToLATSda
-			Delay_1us
-	Transform_Time
+		read_ds1307
+			Soft_I2C_Start
+				Delay_1us
+				PutZerosToLATSda
+				PutZerosToLATScl
+			Soft_I2C_Write
+				Delay_1us
+				PutZerosToLATScl
+				PutZerosToLATSda
+			Soft_I2C_Read
+				Delay_1us
+				PutZerosToLATScl
+				PutZerosToLATSda
+			Soft_I2C_Stop
+				PutZerosToLATSda
+				Delay_1us
+		msb
+		lsb
 	Display_Time
-		Div_8x8_U
-		Lcd_Chr
+		Lcd_Out
 			Lcd_Cmd
 				Delay_1us
 				Delay_5500us
 				Delay_50us
+			Lcd_Chr_CP
+				Lcd_Cmd
+					Delay_1us
+					Delay_5500us
+					Delay_50us

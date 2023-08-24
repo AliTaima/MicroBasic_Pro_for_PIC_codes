@@ -2,12 +2,12 @@
 diagnostics: 0	155	Available RAM: 1515 [bytes], Available ROM: 32768 [bytes]	 
 diagnostics: 0	133	Compilation Started	B:\Alex_Electronics_co\MicroBasic_Pro_for_PIC_codes\RTC\RTC.mbas
 hint: 1	1015	Hint: Compiling unit "B:\Alex_Electronics_co\MicroBasic_Pro_for_PIC_codes\RTC\RTC.mbas"	RTC.mbas
-hint: 127	1010	Hint: Unit "RTC.mbas" has been recompiled	RTC.mbas
+hint: 110	1010	Hint: Unit "RTC.mbas" has been recompiled	RTC.mbas
 diagnostics: 0	134	Compiled Successfully	B:\Alex_Electronics_co\MicroBasic_Pro_for_PIC_codes\RTC\RTC.mbas
 diagnostics: 0	139	All files Compiled in 47 ms	 
-hint: 0	1144	Used RAM (bytes): 19 (1%)  Free RAM (bytes): 1496 (99%)	Used RAM (bytes): 19 (1%)  Free RAM (bytes): 1496 (99%)
-hint: 0	1144	Used ROM (bytes): 1964 (6%)  Free ROM (bytes): 30804 (94%)	Used ROM (bytes): 1964 (6%)  Free ROM (bytes): 30804 (94%)
+hint: 0	1144	Used RAM (bytes): 45 (3%)  Free RAM (bytes): 1470 (97%)	Used RAM (bytes): 45 (3%)  Free RAM (bytes): 1470 (97%)
+hint: 0	1144	Used ROM (bytes): 1504 (5%)  Free ROM (bytes): 31264 (95%)	Used ROM (bytes): 1504 (5%)  Free ROM (bytes): 31264 (95%)
 diagnostics: 0	145	Project Linked Successfully	RTC.mbppi
-diagnostics: 0	140	Linked in 140 ms	 
-diagnostics: 0	141	Project 'RTC.mbppi' completed: 265 ms	 
-diagnostics: 0	103	Finished successfully: 24 Aug 2023, 15:45:18	RTC.mbppi
+diagnostics: 0	140	Linked in 156 ms	 
+diagnostics: 0	141	Project 'RTC.mbppi' completed: 297 ms	 
+diagnostics: 0	103	Finished successfully: 24 Aug 2023, 18:12:13	RTC.mbppi

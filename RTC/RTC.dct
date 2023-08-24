@@ -108,7 +108,6 @@ _cf_status
 _cf_write_sec_cmd
 _ch
 _command
-_day
 _flash_erase
 _flash_write_latch
 _glcd_horizontal
@@ -130,7 +129,6 @@ _lcd_third_row
 _lcd_turn_off
 _lcd_turn_on
 _lcd_underline_on
-_month
 _rs485_start_byte
 _rs485_stop_byte
 _s1d13700_horizontal
@@ -234,6 +232,7 @@ adon_bit
 adres
 adresh
 adresl
+adress
 an0
 an0_bit
 an1
@@ -509,6 +508,8 @@ d_bit
 d_not_a
 d_not_a_bit
 dataarea
+date
+day
 dbl_mant_dig
 dbl_max
 dc
@@ -1154,6 +1155,7 @@ longword2double
 longwordtohex
 longwordtostr
 longwordtostrwithzeros
+lsb
 ltrim
 lvdcon
 lvden
@@ -1252,6 +1254,8 @@ mmc_write_sector
 mn
 mo
 modf
+month
+msb
 mtime
 mtime
 mul_16x16_s
@@ -1546,6 +1550,7 @@ rd16_bit
 rd16_t1con_bit
 re3
 re3_bit
+read_ds1307
 read_time
 res032
 reserved
@@ -2389,6 +2394,7 @@ tft_write_data_ptr
 tft_write_text
 tft_write_text_return_pos
 tglcd_get_ext_data_ptr
+time
 time_datediff
 time_datetoepoch
 time_epochtodate
@@ -2477,7 +2483,6 @@ tp_tft_set_adc_threshold
 tp_tft_set_calibration_consts
 tp_tft_set_default_mode
 tprocedure
-transform_time
 trisa
 trisa0
 trisa0_bit
@@ -2587,10 +2592,6 @@ txip
 txip_bit
 txreg
 txsta
-txt1
-txt2
-txt3
-txt4
 ua
 ua_bit
 uart_data_ready
@@ -2643,6 +2644,8 @@ wrerr
 wrerr_bit
 wue
 wue_bit
+x
+x
 year
 yy
 z
