@@ -36,9 +36,9 @@ end sub
 sub function read_ds1307(dim adress as byte) as byte
     Soft_I2C_Start()              ' Issue start signal
     Soft_I2C_Write(0xd0)          ' Address ds1307
-    Soft_I2C_Write(adress)             ' Start from address 2
+    Soft_I2C_Write(adress)        ' Start from address 2
     Soft_I2C_Start()              ' Issue repeated start signal
-    Soft_I2C_Write(0xd1)          ' Address PCF8583 for reading R/W=1
+    Soft_I2C_Write(0xd1)          ' Address ds1307 for reading R/W=1
     result = Soft_I2C_Read(0)
     Soft_I2C_Stop()               ' Issue stop signal}
 end sub
