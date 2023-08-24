@@ -1,0 +1,16 @@
+program UART
+Dim uart_rd As String[20]
+
+main:
+     UART1_Init(9600)                     ' Initialize UART module at 9600 bps
+
+     Delay_ms(100)                        ' Wait for UART module to stabilize
+
+     UART1_Write_Text("Ready")
+
+     while (TRUE)                         ' Endless loop
+        uart_rd = "Hello" + Chr(13) + Chr(10)
+        UART1_Write_Text(uart_rd)             ' and send data via UART
+        Delay_ms(1000)
+    wend
+end.
