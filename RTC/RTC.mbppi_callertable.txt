@@ -1,6 +1,8 @@
 main
+	__CS2S
 	Init_Main
 		Soft_I2C_Init
+		UART1_Init
 		Lcd_Init
 			Delay_5500us
 			Delay_1us
@@ -48,3 +50,7 @@ main
 					Delay_1us
 					Delay_5500us
 					Delay_50us
+	UART1_Write_Line
+		UART1_Write_Text
+			UART1_Write
+		UART1_Write

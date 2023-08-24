@@ -2600,6 +2600,7 @@ uart_rdy_ptr
 uart_read
 uart_read_text
 uart_set_active
+uart_text
 uart_tx_idle
 uart_tx_idle_ptr
 uart_wr_ptr
@@ -2611,6 +2612,7 @@ uart1_read
 uart1_read_text
 uart1_tx_idle
 uart1_write
+uart1_write_line
 uart1_write_text
 vcfg0
 vcfg0_bit
