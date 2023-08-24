@@ -27,7 +27,7 @@ dim LCD_RS as sbit at RB4_bit
 ' End Lcd module connections
 
 sub function msb(dim x as char) as char ' Yet another function. Make sure that parameters match the type definition
-    result = (x>>4)+$30
+    result = (x>>4)+$30 '$30 to add '0' at the end to display it correctly
 end sub
 
 sub function lsb(dim x as char) as char

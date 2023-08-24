@@ -2,7 +2,7 @@
 _msb:
 
 ;RTC.mbas,29 :: 		sub function msb(dim x as char) as char ' Yet another function. Make sure that parameters match the type definition
-;RTC.mbas,30 :: 		result = (x>>4)+$30
+;RTC.mbas,30 :: 		result = (x>>4)+$30 '$30 to add '0' at the end to display it correctly
 	MOVLW       4
 	MOVWF       R1 
 	MOVF        FARG_msb_x+0, 0 
