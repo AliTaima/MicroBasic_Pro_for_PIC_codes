@@ -1,6 +1,10 @@
 program UART
 Dim uart_rd As String[20]
-
+sub procedure UART1_Write_Line( dim byref uart_text as string )
+    UART1_Write_Text(uart_text)
+    UART1_Write(13)
+    UART1_Write(10)
+end sub
 main:
      UART1_Init(9600)                     ' Initialize UART module at 9600 bps
 
